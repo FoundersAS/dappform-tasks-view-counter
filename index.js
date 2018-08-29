@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const bodyParser = require("body-parser");
 const cors = require("cors");
 const dappform_forms_api_1 = require("dappform-forms-api");
 const express = require("express");
@@ -21,10 +20,9 @@ function initBlockstack(context) {
 }
 const app = express();
 app.use(cors());
-app.use(bodyParser.json());
 app.get('/version', (req, res) => res.send(req.webtaskContext.secrets.version || "0.0.0"));
-app.post('/', async (req, res) => {
-    const formUuid = '';
+app.post('/:formUuid', async (req, res) => {
+    const formUuid = req.params.formUuid;
     console.assert(formUuid, "Didn't find form id");
     initBlockstack(req.webtaskContext);
     const statsFile = `views/${formUuid}/.json`;
@@ -40,8 +38,14 @@ app.post('/', async (req, res) => {
     console.log(submissions[formUuid]);
     const numSubmissions = submissions[formUuid] ? Object.values(submissions[formUuid]).length : 0;
     viewsObj.numSubmissions = numSubmissions;
-    await write_1.putFile(statsFile, viewsObj, false);
-    console.log("wrote " + statsFile, viewsObj);
+    try {
+        await write_1.putFile(statsFile, viewsObj, false);
+        console.log("wrote " + statsFile, viewsObj);
+    }
+    catch (e) {
+        console.error(e);
+        return res.sendStatus(500);
+    }
     res.sendStatus(202);
 });
 module.exports = wt.fromExpress(app);
