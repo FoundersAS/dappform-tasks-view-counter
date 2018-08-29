@@ -37,7 +37,7 @@ app.post('/:formUuid', async (req: WtReq, res:Response) => {
   console.assert(formUuid, "Didn't find form id")
   initBlockstack(req.webtaskContext)
 
-  const statsFile = `views/${formUuid}/.json`
+  const statsFile = `views/${formUuid}.json`
   type FormStats = {
     numViews: number
     numSubmissions: number
