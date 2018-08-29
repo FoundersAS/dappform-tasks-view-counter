@@ -1,4 +1,3 @@
-import * as bodyParser from 'body-parser'
 import * as cors from 'cors'
 import { getFormSubmissions, newFormSubmission, Submission } from 'dappform-forms-api'
 import * as express from 'express'
@@ -26,7 +25,6 @@ function initBlockstack(context: any) {
 const app = express()
 
 app.use(cors())
-app.use(bodyParser.json())
 
 app.get('/version', (req:any, res) => res.send(req.webtaskContext.secrets.version || "0.0.0"))
 
@@ -34,8 +32,8 @@ interface WtReq extends Request {
   webtaskContext: Object,
 }
 
-app.post('/', async (req: WtReq, res:Response) => {
-  const formUuid = ''
+app.post('/:formUuid', async (req: WtReq, res:Response) => {
+  const formUuid = req.params.formUuid
   console.assert(formUuid, "Didn't find form id")
   initBlockstack(req.webtaskContext)
 
@@ -60,8 +58,14 @@ app.post('/', async (req: WtReq, res:Response) => {
   const numSubmissions = submissions[formUuid] ? Object.values( submissions[formUuid] ).length : 0
   viewsObj.numSubmissions = numSubmissions
 
-  await putFile(statsFile, viewsObj, false)
-  console.log("wrote "+statsFile, viewsObj)
+  try {
+    await putFile(statsFile, viewsObj, false)
+    console.log("wrote "+statsFile, viewsObj)
+  }
+  catch (e) {
+    console.error(e)
+    return res.sendStatus(500)
+  }
 
   res.sendStatus(202)
 })
