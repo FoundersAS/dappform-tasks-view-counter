@@ -5,7 +5,6 @@
   "dependencies": {
     "blockstack": "^18.0.3",
     "blockstack-anywhere": "^1.0.0",
-    "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "dappform-forms-api": "^1.0.0",
     "express": "^4.16.3",
@@ -14,14 +13,12 @@
     "webtask-tools": "^3.3.0"
   },
   "devDependencies": {
-    "@types/body-parser": "^1.17.0",
     "@types/cors": "^2.8.4",
     "@types/express": "^4.16.0",
     "@types/node": "^10.9.3",
     "@types/request": "^2.47.1",
     "@types/uuid": "^3.4.3",
     "load-environment": "^3.0.0",
-    "tslint": "^5.11.0",
     "typescript": "^3.0.1"
   },
   "name": "dappform-tasks-view-counter",
