@@ -59,7 +59,7 @@ app.post('/:formUuid', async (req: WtReq, res:Response) => {
   viewsObj.numSubmissions = numSubmissions
 
   try {
-    await putFile(statsFile, viewsObj, false)
+    await putFile(statsFile, viewsObj) // will encrypt file
     console.log("wrote "+statsFile, viewsObj)
   }
   catch (e) {

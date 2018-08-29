@@ -39,7 +39,7 @@ app.post('/:formUuid', async (req, res) => {
     const numSubmissions = submissions[formUuid] ? Object.values(submissions[formUuid]).length : 0;
     viewsObj.numSubmissions = numSubmissions;
     try {
-        await write_1.putFile(statsFile, viewsObj, false);
+        await write_1.putFile(statsFile, viewsObj); // will encrypt file
         console.log("wrote " + statsFile, viewsObj);
     }
     catch (e) {
