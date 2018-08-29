@@ -25,7 +25,7 @@ app.post('/:formUuid', async (req, res) => {
     const formUuid = req.params.formUuid;
     console.assert(formUuid, "Didn't find form id");
     initBlockstack(req.webtaskContext);
-    const statsFile = `views/${formUuid}/.json`;
+    const statsFile = `views/${formUuid}.json`;
     let viewsObj = await write_1.getFile(statsFile);
     if (!viewsObj) {
         viewsObj = {
