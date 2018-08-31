@@ -1,13 +1,12 @@
 import * as cors from 'cors'
-import { getFormSubmissions, newFormSubmission, Submission } from 'dappform-forms-api'
+import { getFormSubmissions } from 'dappform-forms-api'
 import * as express from 'express'
-import { getFile, putFile } from 'dappform-forms-api/dist/lib/write'
 import { Request, Response } from 'express'
+import { getFile, putFile } from 'dappform-forms-api/dist/lib/write'
 
 const wt = require('webtask-tools')
 
 const loadBlockstack = require('blockstack-anywhere')
-const blockstack = require('blockstack')
 
 function initBlockstack(context: any) {
   console.assert(context.secrets.BLOCKSTACK, "missing BLOCKSTACK")

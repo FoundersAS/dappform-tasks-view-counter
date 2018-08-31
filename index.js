@@ -6,7 +6,6 @@ const express = require("express");
 const write_1 = require("dappform-forms-api/dist/lib/write");
 const wt = require('webtask-tools');
 const loadBlockstack = require('blockstack-anywhere');
-const blockstack = require('blockstack');
 function initBlockstack(context) {
     console.assert(context.secrets.BLOCKSTACK, "missing BLOCKSTACK");
     console.assert(context.secrets.BLOCKSTACK_GAIA_HUB_CONFIG, "missing BLOCKSTACK_GAIA_HUB_CONFIG");
